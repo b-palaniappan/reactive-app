@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        maven { url "http://art.nwie.net/artifactory/libs-release" }
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'reactive-app'

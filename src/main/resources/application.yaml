@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongoadmin:mongoPass@localhost:27017/reactive-app?authSource=admin
+logging:
+  level:
+    root: info
+## enable kube liveness and readiness probe
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+## To expose health,metrics,mappings thru web
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,mappings
