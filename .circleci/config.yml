@@ -41,4 +41,9 @@ jobs:
       # run tests!
       - run: gradle test
       
+      # build application
       - run: gradle assemble
+      
+      # artificat
+      - store_artifacts:
+          path: /build/libs
