@@ -1,7 +1,6 @@
 package io.c12.bala.react.controller;
 
 import io.c12.bala.react.dto.UserDto;
-import io.c12.bala.react.entity.User;
 import io.c12.bala.react.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @Log4j2
 @RestController
@@ -20,13 +21,13 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<UserDto> addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public Mono<UserDto> addUser(@Valid @RequestBody UserDto userDto) {
+        return userService.addUser(userDto);
     }
 
     @PutMapping("/{id}")
-    public Mono<UserDto> updateUser(@PathVariable String id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public Mono<UserDto> updateUser(@PathVariable String id, @Valid @RequestBody UserDto userDto) {
+        return userService.updateUser(id, userDto);
     }
 
     @GetMapping

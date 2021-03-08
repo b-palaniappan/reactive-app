@@ -23,16 +23,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Mono<UserDto> addUser(User user) {
-        log.info("Adding a user to db - {}", user);
+    public Mono<UserDto> addUser(UserDto userDto) {
+        log.info("Adding a user to db - {}", userDto);
+        User user = modelMapper.map(userDto, User.class);       // convert DTO to entity before we store teh DB.
         user.setId(NanoIdUtils.randomNanoId());
         Mono<User> savedUser = userRepository.save(user);
         return savedUser.map(u -> modelMapper.map(u, UserDto.class));
     }
 
     @Override
-    public Mono<UserDto> updateUser(String id, User user) {
+    public Mono<UserDto> updateUser(String id, UserDto userDto) {
         log.info("Update user for id {}", id);
+        User user = modelMapper.map(userDto, User.class);       // convert DTO to entity before we update the DB.
         return userRepository.existsById(id).flatMap(x -> {
             log.info("User Id {} exists - {}", id, x);
             if (x) {
