@@ -56,6 +56,10 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
         return serverWebExchange.getResponse().writeWith(Mono.just(dataBuffer));
     }
 
+    interface ApiSubError {
+
+    }
+
     @Data
     @AllArgsConstructor
     @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
@@ -97,10 +101,6 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
             }
             subErrors.add(subError);
         }
-    }
-
-    interface ApiSubError {
-
     }
 
     @Data
