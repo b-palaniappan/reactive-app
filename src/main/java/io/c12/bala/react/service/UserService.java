@@ -8,7 +8,7 @@ public interface UserService {
 
     Mono<UserDto> addUser(UserDto userDto);
 
-    Mono<UserDto> updateUser(String id, UserDto userDto);
+    Mono<UserDto> updateUser(UserDto userDto);
 
     Mono<Void> deleteUser(String id);
 

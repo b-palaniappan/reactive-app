@@ -2,7 +2,6 @@ package io.c12.bala.react.service;
 
 import io.c12.bala.react.dto.UserDto;
 import io.c12.bala.react.entity.User;
-import io.c12.bala.react.exception.UserNotFoundException;
 import io.c12.bala.react.repository.UserRepository;
 import io.c12.bala.react.utils.NanoIdUtils;
 import lombok.RequiredArgsConstructor;
@@ -32,37 +31,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mono<UserDto> updateUser(String id, UserDto userDto) {
-        log.info("Update user for id {}", id);
+    public Mono<UserDto> updateUser(UserDto userDto) {
+        log.info("Update user. new user info {}", userDto);
         User user = modelMapper.map(userDto, User.class);       // convert DTO to entity before we update the DB.
-        return userRepository.existsById(id).flatMap(x -> {
-            log.info("User Id {} exists - {}", id, x);
-            if (x) {
-                user.setId(id);
-                return userRepository.save(user);
-            } else {
-                return Mono.error(new UserNotFoundException());
-            }
-        }).map(u -> modelMapper.map(u, UserDto.class));
+        return findUserById(user.getId())
+                .flatMap(u -> userRepository.save(user))
+                .map(u -> modelMapper.map(u, UserDto.class));    // convert back to dto
     }
 
     @Override
     public Mono<Void> deleteUser(String id) {
-        return userRepository.existsById(id).flatMap(x -> {
-            log.info("User Id {} exists - {}", id, x);
-            if (x) {
-                return userRepository.deleteById(id);
-            } else {
-                return Mono.error(new UserNotFoundException());
-            }
-        });
+        return findUserById(id)
+                .flatMap(userRepository::delete)
+                .then();
     }
 
     @Override
     public Mono<UserDto> getUserById(String id) {
-        return userRepository.findById(id)
-                .switchIfEmpty(monoResponseStatusNotFoundException())     // Throw 404 if user not found for id.
-                .map(u -> modelMapper.map(u, UserDto.class));
+        return findUserById(id).map(u -> modelMapper.map(u, UserDto.class));
     }
 
     @Override
@@ -71,8 +57,13 @@ public class UserServiceImpl implements UserService {
     }
 
     // General exception handling for User not found
-    public <T> Mono<T> monoResponseStatusNotFoundException() {
+    private <T> Mono<T> monoResponseStatusNotFoundException() {
         return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    private Mono<User> findUserById(String id) {
+        return userRepository.findById(id)
+                .switchIfEmpty(monoResponseStatusNotFoundException());      // Throws 404 exception if not found for id.
     }
 
 }

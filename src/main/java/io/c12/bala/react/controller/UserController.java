@@ -26,16 +26,20 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<UserDto> updateUser(@PathVariable String id, @Valid @RequestBody UserDto userDto) {
-        return userService.updateUser(id, userDto);
+        userDto.setId(id);
+        return userService.updateUser(userDto);
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public Flux<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<UserDto> getUser(@PathVariable String id) {
         return userService.getUserById(id);
     }
