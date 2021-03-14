@@ -11,7 +11,7 @@ management:
     health:
       probes:
         enabled: true
-## To expose health,metrics,mappings thru web
+  ## To expose health,metrics,mappings thru web
   endpoints:
     web:
       exposure:
