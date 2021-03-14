@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongoadmin:mongoPass@localhost:27017/reactive-app?authSource=admin
+      uri: mongodb://localhost:27017/reactive-app
 logging:
   level:
     root: info
