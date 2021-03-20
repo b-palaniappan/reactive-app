@@ -38,8 +38,12 @@ dependencies {
     // Springboot testing with Spock test framework
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Spock test framework
     testImplementation 'org.spockframework:spock-core:1.3-groovy-2.5'
     testImplementation 'org.spockframework:spock-spring:1.3-groovy-2.5'
+
+    // Reactor test framework
     testImplementation 'io.projectreactor:reactor-test'
 }
 

@@ -21,4 +21,13 @@
 	"authorities": ["ROLE_ADMIN", "ROLE_USER"],
 	"plainPassword": "HelloWorld@123"
 }
+
+{
+	"_id": "Vrroae7F2VxN9U3hGF1hZ",
+	"name": "Jack Reacher",
+	"username": "jack",
+	"password": "{bcrypt}$2y$12$5QtIoFB1SfrRsrt.BmgZpOSY1TULZQfGgtjtr8htBxCvT8r/sZYxm",
+	"authorities": ["ROLE_USER"],
+	"plainPassword": "HelloWorld@123"
+}
 ```
