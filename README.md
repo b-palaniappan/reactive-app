@@ -2,16 +2,18 @@
 
 ## Local MongoDB database in docker
 * download docker image locally `docker image pull mongo:bionic`
-* run local docker container `docker run --rm --name local-mongo -p 27017:27017 -d mongo:bionic`
+* run local docker container `docker run --rm --name local-mongo -p 27017:27017 -d mongo:focal`
 
 ## Todo
 * ~~Global Error Handling~~
 * ~~Validation~~
-* ~~Basic Auth~~  
+* ~~Basic Auth~~
 * Security using JWT
 * Binary communication protocol using RSocket.
 
-## Sample auth-user record to be inserted in MongoDB collection `user-auth`
+## Sample auth-user
+* MongoDB database - `reactive-app`
+* Create sample user record in MongoDB collection `user-auth`
 ```
 {
 	"_id": "zZmkxHSnBxZsgq1wteabp",

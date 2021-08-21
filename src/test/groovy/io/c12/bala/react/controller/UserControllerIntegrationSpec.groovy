@@ -78,7 +78,6 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.error").isNotEmpty()
                 .jsonPath("\$.error").isEqualTo("Bad Request")
                 .jsonPath("\$.status").isEqualTo(400)
-                .jsonPath("\$.message").isEqualTo("")
 
         then: "verify if the repository and modelMapper are NOT called"
         0 * modelMapper.map(_, _)
@@ -138,7 +137,6 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.error").isNotEmpty()
                 .jsonPath("\$.error").isEqualTo("Not Found")
                 .jsonPath("\$.status").isEqualTo(404)
-                .jsonPath("\$.message").isEqualTo("")
 
         then: "verify if the repository and modelMapper are called"
         1 * modelMapper.map(_ as UserDto, User.class) >> User.builder().id("PsfcHujR0goR3KFHqIBIj").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
@@ -204,7 +202,6 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.error").isNotEmpty()
                 .jsonPath("\$.error").isEqualTo("Not Found")
                 .jsonPath("\$.status").isEqualTo(404)
-                .jsonPath("\$.message").isEqualTo("")
 
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findById("oApNCL9e3nfA7S6bQsz3m") >> Mono.empty()
@@ -231,7 +228,6 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.error").isNotEmpty()
                 .jsonPath("\$.error").isEqualTo("Not Found")
                 .jsonPath("\$.status").isEqualTo(404)
-                .jsonPath("\$.message").isEqualTo("")
 
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findById("P3EvOAs9kM3BQ8H43kXkN") >> Mono.empty()
