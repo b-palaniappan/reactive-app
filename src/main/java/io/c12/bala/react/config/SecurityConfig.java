@@ -17,14 +17,16 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
-                .csrf().disable()
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole(ReactiveConstant.SECURITY_ROLE_ADMIN)     // Only admin can do POST
-                .pathMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole(ReactiveConstant.SECURITY_ROLE_USER, ReactiveConstant.SECURITY_ROLE_ADMIN)       // user can only do GET
-                .anyExchange().authenticated()
-                .and().formLogin()
-                .and().httpBasic()
-                .and().build();
+            .csrf().disable()
+            .authorizeExchange()
+            .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            .pathMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole(ReactiveConstant.SECURITY_ROLE_ADMIN)     // Only admin can do POST
+            .pathMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole(ReactiveConstant.SECURITY_ROLE_USER, ReactiveConstant.SECURITY_ROLE_ADMIN)       // user can only do GET
+            .anyExchange().authenticated()
+            .and().formLogin()
+            .and().httpBasic()
+            .and().formLogin().disable()
+            .build();
     }
 
     @Bean
