@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: gradle:jdk15
+      - image: gradle:jdk11
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -40,10 +40,10 @@ jobs:
 
       # run tests!
       - run: gradle test
-      
+
       # build application
       - run: gradle assemble
-      
+
       - run:
           name: Save test results
           command: |

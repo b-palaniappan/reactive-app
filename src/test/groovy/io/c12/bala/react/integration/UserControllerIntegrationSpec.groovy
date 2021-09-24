@@ -27,5 +27,4 @@ class UserControllerIntegrationSpec extends Specification {
                 .expectStatus().isUnauthorized()
     }
 
-
 }
