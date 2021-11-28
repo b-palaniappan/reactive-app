@@ -26,10 +26,12 @@ jobs:
     - name: Gradle dependencies
       uses: gradle/gradle-build-action@v2
       with:
+        gradle-version: current
         arguments: dependencies
     - name: Test with Gradle
       uses: gradle/gradle-build-action@v2
       with:
+        gradle-version: current
         arguments: check
     - name: Archive test report
       uses: actions/upload-artifact@v2
@@ -39,4 +41,5 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v2
       with:
+        gradle-version: current
         arguments: assemble
