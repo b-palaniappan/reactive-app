@@ -58,9 +58,7 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.id").isEqualTo("NcyBK0F0Tbm38g8keKH30")
 
         then: "verify if the repository and modelMapper are called"
-        1 * modelMapper.map(userDto, User.class) >> User.builder().firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
         1 * userRepository.save(_ as User) >> Mono.just(User.builder().id("NcyBK0F0Tbm38g8keKH30").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build())
-        1 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("NcyBK0F0Tbm38g8keKH30").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
     }
 
     def "add a new user with missing required values"() {
@@ -80,7 +78,6 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.status").isEqualTo(400)
 
         then: "verify if the repository and modelMapper are NOT called"
-        0 * modelMapper.map(_, _)
         0 * userRepository.save(_ as User)
     }
 
@@ -97,10 +94,8 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.id").isEqualTo("fzFIu8jUe09d2lXqJf9x5")
 
         then: "verify if the repository and modelMapper are called"
-        1 * modelMapper.map(_ as UserDto, User.class) >> User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
         1 * userRepository.findById("fzFIu8jUe09d2lXqJf9x5") >> Mono.just(User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build())
         1 * userRepository.save(_ as User) >> Mono.just(User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build())
-        1 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
     }
 
     def "update a user add interests return a Mono of UserDto"() {
@@ -118,10 +113,8 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.interests").isArray()
 
         then: "verify if the repository and modelMapper are called"
-        1 * modelMapper.map(_ as UserDto, User.class) >> User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").interests(["iot", "home automation"]).build()
         1 * userRepository.findById("fzFIu8jUe09d2lXqJf9x5") >> Mono.just(User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build())
         1 * userRepository.save(_ as User) >> Mono.just(User.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").interests(["iot", "home automation"]).build())
-        1 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("fzFIu8jUe09d2lXqJf9x5").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").interests(["iot", "home automation"]).build()
     }
 
     def "update a user but user not found for the ID"() {
@@ -139,10 +132,8 @@ class UserControllerIntegrationSpec extends Specification {
                 .jsonPath("\$.status").isEqualTo(404)
 
         then: "verify if the repository and modelMapper are called"
-        1 * modelMapper.map(_ as UserDto, User.class) >> User.builder().id("PsfcHujR0goR3KFHqIBIj").firstName("John").lastName("Doe").userId("john.doe").emailId("john@cloud12.io").build()
         1 * userRepository.findById("PsfcHujR0goR3KFHqIBIj") >> Mono.empty()
         0 * userRepository.save(_ as User)
-        0 * modelMapper.map(_ as User, UserDto.class)
     }
 
     def "get all users from DB"() {
@@ -160,7 +151,6 @@ class UserControllerIntegrationSpec extends Specification {
 
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findAll() >> Flux.just(User.builder().id("6czbZTolSKSwf8P0jGXcb").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build())
-        1 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("6czbZTolSKSwf8P0jGXcb").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build()
     }
 
     def "get all users from DB returns two user"() {
@@ -176,8 +166,6 @@ class UserControllerIntegrationSpec extends Specification {
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findAll() >> Flux.just(User.builder().id("6czbZTolSKSwf8P0jGXcb").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build(),
                 User.builder().id("9YX7n4AxOturpO3KNO3Pm").firstName("Jack").lastName("Reacher").userId("jack.reacher").emailId("jack.reacher@c12.io").build())
-        2 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("6czbZTolSKSwf8P0jGXcb").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build() >>
-                UserDto.builder().id("9YX7n4AxOturpO3KNO3Pm").firstName("Jack").lastName("Reacher").userId("jack.reacher").emailId("jack.reacher@c12.io").build()
     }
 
     def "find user by id return Mono of UserDto"() {
@@ -190,7 +178,6 @@ class UserControllerIntegrationSpec extends Specification {
 
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findById("oApNCL9e3nfA7S6bQsz3m") >> Mono.just(User.builder().id("oApNCL9e3nfA7S6bQsz3m").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build())
-        1 * modelMapper.map(_ as User, UserDto.class) >> UserDto.builder().id("oApNCL9e3nfA7S6bQsz3m").firstName("John").lastName("Doe").userId("john.doe").emailId("john.doe@c12.io").build()
     }
 
     def "find user by id when user by id not found"() {
@@ -205,7 +192,6 @@ class UserControllerIntegrationSpec extends Specification {
 
         then: "verify if the repository and modelMapper are called"
         1 * userRepository.findById("oApNCL9e3nfA7S6bQsz3m") >> Mono.empty()
-        0 * modelMapper.map(_ as User, UserDto.class)
     }
 
     def "delete user by id return No Content"() {
@@ -248,7 +234,8 @@ class UserControllerIntegrationSpec extends Specification {
 
         @Bean
         ModelMapper modelMapper() {
-            detachedMockFactory.Mock(ModelMapper)
+            // Using real model mapper instead of mocking it up.
+            return new ModelMapper()
         }
     }
 }
