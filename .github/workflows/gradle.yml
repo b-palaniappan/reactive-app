@@ -21,16 +21,20 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         architecture: x64
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
     - name: Gradle dependencies
-      run: ./gradlew dependencies
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: dependencies
     - name: Test with Gradle
-      run: ./gradlew test
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: check
     - name: Archive test report
       uses: actions/upload-artifact@v2
       with:
         name: Test Report
         path: build/reports/tests/test
     - name: Build with Gradle
-      run: ./gradlew assemble
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: assemble
