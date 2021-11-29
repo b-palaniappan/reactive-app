@@ -1,14 +1,20 @@
-FROM adoptopenjdk:11-jdk-hotspot
+FROM gradle:jdk11 as builder
+WORKDIR /app
+COPY . /app
+RUN gradle --no-daemon --parallel clean build
+
+FROM eclipse-temurin:11-jre-alpine
 
 # add local user and app directory
-RUN groupadd -r raappuser && useradd --no-log-init -m -r -u 1001 -g raappuser raappuser && mkdir /app
+RUN addgroup -S raappuser && adduser -S raappuser -G raappuser && mkdir /app
 
-# copy jar file and entrypoint shell
+# Create and set work directory
 WORKDIR /app
-COPY ./build/libs/reactive-app-0.1.0.jar ./app.jar
-
-# Set file permissions
-RUN chown -R raappuser:raappuser .
+# switch user to raappuser
 USER raappuser
-
-CMD java -jar app.jar
+# Copy application from gradle builder
+COPY --chown=appuser:appuser --from=builder /app/build/libs/reactive-app-0.1.0.jar /app/application.jar
+# specify the port which will be exposed
+EXPOSE 8080
+# run application
+CMD ["java", "-jar", "application.jar"]
