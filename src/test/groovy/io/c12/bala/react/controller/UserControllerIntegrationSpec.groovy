@@ -7,6 +7,7 @@ import io.c12.bala.react.service.UserServiceImpl
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
+import org.springframework.boot.autoconfigure.web.WebProperties
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
@@ -26,7 +27,7 @@ import spock.mock.DetachedMockFactory
  *
  * Run WebFlux test with security disabled.
  */
-@WebFluxTest(controllers = [UserController], excludeAutoConfiguration = [ReactiveSecurityAutoConfiguration.class])
+@WebFluxTest(controllers = UserController.class, excludeAutoConfiguration = [ReactiveSecurityAutoConfiguration.class])
 @Import(UserServiceImpl.class)
 class UserControllerIntegrationSpec extends Specification {
 
@@ -227,6 +228,7 @@ class UserControllerIntegrationSpec extends Specification {
     static class MockConfig {
         def detachedMockFactory = new DetachedMockFactory()
 
+        // Mock User Repository instead of calling real one.
         @Bean
         UserRepository userRepository() {
             detachedMockFactory.Mock(UserRepository)
@@ -236,6 +238,12 @@ class UserControllerIntegrationSpec extends Specification {
         ModelMapper modelMapper() {
             // Using real model mapper instead of mocking it up.
             return new ModelMapper()
+        }
+
+        // Fix for Springboot 2.6.x issue with GlobalExceptionHandler
+        @Bean
+        WebProperties.Resources resources() {
+            return new WebProperties.Resources();
         }
     }
 }

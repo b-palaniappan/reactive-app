@@ -9,10 +9,11 @@
 * ~~Validation~~
 * ~~Basic Auth~~
 * Security using JWT
-* Binary communication protocol using RSocket.
+* Binary communication protocol using RSocket. Will be different project with client / Server.
 
 ## Sample auth-user
-* MongoDB database - `reactive-app`
+* Create MongoDB database - `use reactiveApp`
+* Create collection - `db.createCollection("userAuth", { } )`
 * Create sample user record in MongoDB collection `userAuth`
 ```
 db.userAuth.insertMany([
