@@ -1,5 +1,6 @@
 package io.c12.bala.react.service;
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import io.c12.bala.react.dto.UserDto;
 import io.c12.bala.react.entity.User;
 import io.c12.bala.react.repository.UserRepository;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public Mono<UserDto> addUser(UserDto userDto) {
         log.info("Adding a user to db - {}", userDto);
         User user = modelMapper.map(userDto, User.class);       // convert DTO to entity before we store teh DB.
-        user.setId(UUID.randomUUID().toString());
+        user.setId(NanoIdUtils.randomNanoId());
         return userRepository.save(user).map(u -> modelMapper.map(u, UserDto.class));       // save and convert to UserDto class
     }
 

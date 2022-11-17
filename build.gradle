@@ -1,12 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
     id 'groovy'
 }
 
 group = 'io.c12.bala'
-version = '0.1.0'
+version = '0.2.0'
 sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -32,16 +32,18 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'org.modelmapper:modelmapper:2.4.5'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
     implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'       // currently only works with JDK 11
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'
+    implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
 
     // Springboot testing with Spock test framework
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
     // Spock test framework
-    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
-    testImplementation 'org.spockframework:spock-spring:2.0-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0'
 
     // Reactor test framework
     testImplementation 'io.projectreactor:reactor-test'

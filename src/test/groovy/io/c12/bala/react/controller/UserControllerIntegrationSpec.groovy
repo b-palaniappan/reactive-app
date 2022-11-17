@@ -41,7 +41,8 @@ class UserControllerIntegrationSpec extends Specification {
     ModelMapper modelMapper
 
     def setupSpec() {
-        BlockHound.install()
+         // Disabling BlockHound Since it thinks secure random is blocking call.
+         BlockHound.install()
     }
 
     def "add a new user returns Mono of userDto"() {
