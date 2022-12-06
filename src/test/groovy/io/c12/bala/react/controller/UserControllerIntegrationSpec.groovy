@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.web.reactive.function.BodyInserters
-import reactor.blockhound.BlockHound
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import spock.lang.Specification
@@ -39,11 +38,6 @@ class UserControllerIntegrationSpec extends Specification {
 
     @Autowired
     ModelMapper modelMapper
-
-    def setupSpec() {
-         // Disabling BlockHound Since it thinks secure random is blocking call.
-         BlockHound.install()
-    }
 
     def "add a new user returns Mono of userDto"() {
         given: "create mock user to be saved"

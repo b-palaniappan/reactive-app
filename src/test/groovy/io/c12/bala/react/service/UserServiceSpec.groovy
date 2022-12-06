@@ -5,7 +5,6 @@ import io.c12.bala.react.entity.User
 import io.c12.bala.react.repository.UserRepository
 import org.modelmapper.ModelMapper
 import org.springframework.web.server.ResponseStatusException
-import reactor.blockhound.BlockHound
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
@@ -21,10 +20,6 @@ class UserServiceSpec extends Specification {
     // Test data
     UserDto userDto = UserDto.builder().id("b6EOm8CbKt_meGjNz1tm9").firstName("John").lastName("Doe").emailId("john@c12.io").userId("john_doe").build()
     User user = User.builder().id("b6EOm8CbKt_meGjNz1tm9").firstName("John").lastName("Doe").emailId("john@c12.io").userId("john_doe").build()
-
-    def setupSpec() {
-        BlockHound.install()
-    }
 
     def "Add user successfully"() {
         when:

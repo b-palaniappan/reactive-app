@@ -4,7 +4,6 @@ import io.c12.bala.react.dto.UserDto
 import io.c12.bala.react.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
-import reactor.blockhound.BlockHound
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
@@ -17,10 +16,6 @@ class UserControllerSpec extends Specification {
     UserController userController = new UserController(userService)
 
     UserDto userDto = UserDto.builder().id("b6EOm8CbKt_meGjNz1tm9").firstName("John").lastName("Doe").emailId("john@c12.io").userId("john_doe").build()
-
-    def setupSpec() {
-        BlockHound.install()
-    }
 
     def "add user return mono of user"() {
         when:
