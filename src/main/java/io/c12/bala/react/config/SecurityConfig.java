@@ -20,8 +20,8 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeExchange()
             .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-            .pathMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole(ReactiveConstant.SECURITY_ROLE_ADMIN)     // Only admin can do POST
-            .pathMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole(ReactiveConstant.SECURITY_ROLE_USER, ReactiveConstant.SECURITY_ROLE_ADMIN)       // user can only do GET
+            .pathMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/**").hasRole(ReactiveConstant.SECURITY_ROLE_ADMIN)     // Only admin can do POST
+            .pathMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/**").hasAnyRole(ReactiveConstant.SECURITY_ROLE_USER, ReactiveConstant.SECURITY_ROLE_ADMIN)       // user can only do GET
             .anyExchange().authenticated()
             .and().formLogin()
             .and().httpBasic()

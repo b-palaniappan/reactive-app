@@ -1,8 +1,8 @@
 # Springboot Webflux Reactive app
 
 ## Local MongoDB database in docker
-* download docker image locally `docker image pull mongo:bionic`
-* run local docker container `docker run --rm --name local-mongo -p 27017:27017 -d mongo:focal`
+* download docker image locally `docker image pull mongo:6`
+* run local docker container `docker run --rm --name local-mongo -p 27017:27017 -d mongo:6`
 
 ## Todo
 * ~~Global Error Handling~~

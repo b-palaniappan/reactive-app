@@ -6,8 +6,8 @@ plugins {
 }
 
 group = 'io.c12.bala'
-version = '0.2.0'
-sourceCompatibility = JavaVersion.VERSION_11
+version = '0.2.1'
+sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
     compileOnly {
@@ -33,7 +33,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.modelmapper:modelmapper:3.1.0'
-    implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'       // currently only works with JDK 11
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
 

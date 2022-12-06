@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/reactive-app
+      uri: mongodb://localhost:27017/reactiveApp
 logging:
   level:
     root: info
