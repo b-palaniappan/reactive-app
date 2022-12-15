@@ -2,6 +2,7 @@ package io.c12.bala.react.config;
 
 import io.c12.bala.react.service.AuthUserDetailsService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
@@ -11,7 +12,8 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @EnableWebFluxSecurity
-@EnableReactiveMethodSecurity()           // Enables security at controller method level
+@EnableReactiveMethodSecurity           // Enables security at controller method level
+@Configuration
 public class SecurityConfig {
 
     @Bean
