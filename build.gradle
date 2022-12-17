@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.c12.bala'
-version = '0.2.1'
+version = '0.2.2'
 sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
@@ -33,7 +33,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.modelmapper:modelmapper:3.1.0'
-    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'     // For macos netty DNS issue.
+    // For macos netty DNS issue.
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
 
     // Springboot testing with Spock test framework
@@ -41,8 +42,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     // Spock test framework
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
-    testImplementation 'org.spockframework:spock-spring:2.3-groovy-4.0'
+    testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+    testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
 
     // Reactor test framework
     testImplementation 'io.projectreactor:reactor-test'
