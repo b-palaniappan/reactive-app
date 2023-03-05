@@ -13,8 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -27,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public Mono<UserDto> addUser(UserDto userDto) {
         log.info("Adding a user to db - {}", userDto);
         User user = modelMapper.map(userDto, User.class);       // convert DTO to entity before we store teh DB.
-        user.setId(NanoIdUtils.randomNanoId());
+        user.setId("u_" + NanoIdUtils.randomNanoId(NanoIdUtils.DEFAULT_NUMBER_GENERATOR, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray(), 25));
         return userRepository.save(user).map(u -> modelMapper.map(u, UserDto.class));       // save and convert to UserDto class
     }
 
