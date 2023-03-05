@@ -1,6 +1,9 @@
 # Springboot Webflux Reactive app
 
-![workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![GitHub](https://img.shields.io/github/license/b-palaniappan/reactive-app)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/b-palaniappan/reactive-app/gradle.yml)
+![GitHub top language](https://img.shields.io/github/languages/top/b-palaniappan/reactive-app)
+![GitHub last commit](https://img.shields.io/github/last-commit/b-palaniappan/reactive-app)
 
 ## Local MongoDB database in docker
 
