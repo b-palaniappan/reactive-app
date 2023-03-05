@@ -14,31 +14,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        architecture: x64
-    - name: Gradle dependencies
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        arguments: dependencies
-    - name: Test with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        arguments: check
-    - name: Archive test report
-      uses: actions/upload-artifact@v2
-      if: success() || failure()
-      with:
-        name: Test Report
-        path: build/reports/tests/test
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        arguments: assemble
+      - uses: actions/checkout@v2
+      - name: Set up JDK 19
+        uses: actions/setup-java@v2
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+          architecture: x64
+      - name: Gradle dependencies
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: dependencies
+      - name: Test with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: check
+      - name: Archive test report
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: Test Report
+          path: build/reports/tests/test
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: assemble
